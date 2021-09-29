@@ -11,7 +11,7 @@
 /** Convert backscatter from linear to dB. */
 exports.lin_to_db = function(image) {
   var bandNames = image.bandNames().remove('angle');
-  var db = ee.Image.constant(10).multiply(image.select(bandNames).log10()).rename(bandNames)
+  var db = ee.Image(10).pow(image.select(bandNames).divide(10)).rename(bandNames)
   return image.addBands(db, null, true)
 };
 
